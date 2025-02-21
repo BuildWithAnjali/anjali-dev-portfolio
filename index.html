@@ -66,14 +66,23 @@ body{
         width: fit-content;
       }
 
-      .typing-loop {
+/*       .typing-loop {
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
         border-right: 3px solid white;
         animation: typing 3s steps(40, end) alternate infinite,
           blink 1s infinite;
-      }
+      } */
+
+
+      .typing::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
     </style>
   </head>
   <body class="bg-gray-100 text-gray-900">
@@ -115,10 +124,45 @@ body{
         alt="Profile Picture"
         class="w-24 h-24 rounded-full mx-auto mb-8 transform transition-transform duration-300 hover:scale-110" />
       <h2 class="text-2xl font-bold w-fit mb-4 mx-auto text-center md:text-5xl">
-        <span class="typing-loop w-fit">Hey! I'm Anjali........</span>
+        <span class=" w-fit">Hey! I'm Anjali........</span>
       </h2>
+<p class="text-XL md:text-2xl  text-center mx-auto font-bold mt-2 mb-4"><span class="typing "></span></p>
+      
+      <script>
+        const sentences = [
+            "I am a Frontend Developer.",
+            "I love building UI with React.js.",
+            "Passionate about Web Development.",
+            "Turning ideas into reality."
+        ];
 
-      <p class="text-XL md:text-2xl   font-bold mt-2 mb-4">STUDENT and FRONT-END-DEVELOPER </p>
+        let index = 0;
+        let charIndex = 0;
+        const typingElement = document.querySelector('.typing');
+
+        function typeText() {
+            if (charIndex < sentences[index].length) {
+                typingElement.innerHTML = sentences[index].substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeText, 100);
+            } else {
+                setTimeout(eraseText, 1000);
+            }
+        }
+
+        function eraseText() {
+            if (charIndex > 0) {
+                typingElement.innerHTML = sentences[index].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, 50);
+            } else {
+                index = (index + 1) % sentences.length;
+                setTimeout(typeText, 500);
+            }
+        }
+
+        typeText();
+    </script>
       <div class="flex justify-center space-x-4 mt-4">
         <a
           href="https://github.com/BuildWithAnjali"
